@@ -1,0 +1,11 @@
+name: requirements2png
+description: Generate png from Ansible requirement.yml
+author: Robert de Bock <robert@meinit.nl>
+
+runs:
+  using: docker
+  image: 'docker://robertdebock/github-action-graphviz:1.0.0'
+
+branding:
+  icon: loader
+  color: green
