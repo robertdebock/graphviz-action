@@ -16,6 +16,8 @@ This action will pickup `requirement.yml` (in the root of you role) and generate
 on:
   - push
 
+name: Ansible Graphviz
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -25,10 +27,10 @@ jobs:
         with:
           path: "${{ github.repository }}"
       - name: graphviz
-        uses: robertdebock/graphviz-action@1.0.0
+        uses: robertdebock/graphviz-action@1.0.1
       - name: savepng
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
-          name: requirementsdot
+          name: requirements
           path: requirements.*
 ```
