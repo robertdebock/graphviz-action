@@ -4,7 +4,7 @@ author: Robert de Bock <robert@meinit.nl>
 
 runs:
   using: docker
-  image: 'docker://robertdebock/github-action-graphviz:1.0.5'
+  image: 'docker://robertdebock/github-action-graphviz:1.0.6'
 
 branding:
   icon: loader

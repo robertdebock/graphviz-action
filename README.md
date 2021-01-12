@@ -26,11 +26,43 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: "${{ github.repository }}"
-      - name: graphviz
-        uses: robertdebock/graphviz-action@1.0.4
-      - name: savepng
-        uses: actions/upload-artifact@v2
+      - name: create png
+        uses: robertdebock/graphviz-action@1.0.6
+```
+
+In the example above the PNG is created, but nothing is done to store the PNG.
+
+Here is a full example that saves the generated file (`.dot` and `.png`) to a branch called `png`.
+
+```yaml
+---
+on:
+  - push
+
+name: Ansible Graphviz
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
         with:
-          name: requirements
-          path: requirements.*
+          path: "${{ github.repository }}"
+      - name: create png
+        uses: robertdebock/graphviz-action@1.0.6
+      - name: Commit files
+        run: |
+          cd ${{ github.repository }}
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add requirements.dot requirements.png
+          git commit -m "Add generated files"
+      - name: save to png branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: ${{ github.repository }}
+          force: true
+          branch: png
 ```
